@@ -1,0 +1,22 @@
+{
+  "name": "dm_playwright_academy",
+  "version": "1.0.0",
+  "description": "Playwright",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davidmedekCZ/dm_playwright_academy.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/davidmedekCZ/dm_playwright_academy/issues"
+  },
+  "homepage": "https://github.com/davidmedekCZ/dm_playwright_academy#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.56.1",
+    "@types/node": "^24.10.0"
+  }
+}
