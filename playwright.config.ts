@@ -1,4 +1,4 @@
-import { defineConfig, devices } from '@playwright/test';
+import { defineConfig, devices } from "@playwright/test";
 
 /**
  * Read environment variables from file.
@@ -12,7 +12,7 @@ import { defineConfig, devices } from '@playwright/test';
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  testDir: './tests',
+  testDir: "./tests",
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -22,24 +22,33 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
-
+  reporter: [["html"], ["line"]],
+  timeout: 60_000, // ? Nastavení timeoutu na 60 sekund (timeout se nastavuje vždy v ms) - maximální doba běhu testu
+  globalTimeout: 1 * 60 * 60 * 1_000, // ? Nastavení maximální doby běhu všech spuštěných testů (npx playwright test)
+  expect: {
+    timeout: 7_000, // ? Nastavení maximální čekací doby pro kontroly (asserty)
+  },
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
+    actionTimeout: 7_000, // ? Maximální doba běhu akce (click, fill...)
+    navigationTimeout: 40_000, // ? Maximálně doba běhu goto()
+    // ignoreHTTPSErrors: true, // ! Vypnutí kontroly bezpečnosti (certifikátů) prohlížečů. Opatrně! Používáme například na testovacích prostředích, kde není dobře vyřešená bezpečnost nebo certifikáty
     /* Base URL to use in actions like `await page.goto('')`. */
     // baseURL: 'http://localhost:3000',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
+    screenshot: "only-on-failure",
+    video: "off",
+    trace: "retain-on-failure",
   },
 
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      name: "chromium",
+      use: { ...devices["Desktop Chrome"] },
     },
-/*
+    /*
     {
       name: 'firefox',
       use: { ...devices['Desktop Firefox'] },
@@ -52,12 +61,12 @@ export default defineConfig({
 */
     /* Test against mobile viewports. */
     // {
-    //   name: 'Mobile Chrome',
-    //   use: { ...devices['Pixel 5'] },
+    //   name: "Mobile Chrome",
+    //   use: { ...devices["Pixel 5"] },
     // },
     // {
-    //   name: 'Mobile Safari',
-    //   use: { ...devices['iPhone 12'] },
+    //   name: "Mobile Safari",
+    //   use: { ...devices["iPhone 12"] },
     // },
 
     /* Test against branded browsers. */
@@ -78,3 +87,18 @@ export default defineConfig({
   //   reuseExistingServer: !process.env.CI,
   // },
 });
+
+// * Ternární operátor:
+// const isValid: boolean = true;
+// let testTernary;
+
+// testTernary = isValid ? "True ternání operátor" : "False ternární operátor";
+
+// // ? Stejný zápis jako ternární operátor:
+// if (isValid) {
+//   testTernary = "True ternání operátor";
+// } else {
+//   testTernary = "False ternární operátor";
+// }
+
+// console.log(testTernary);
