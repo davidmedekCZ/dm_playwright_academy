@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Playwright",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    // "test:ui": "playwright test --ui"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/davidmedekCZ/dm_playwright_academy.git"
